@@ -1,7 +1,11 @@
 # Learning Rigidity in Dynamic Scenes with a Moving Camera for 3D Motion Field Estimation (ECCV 2018)
 
+![alt text](http://research.nvidia.com/sites/default/files/publications/learning-rigidity_0.png)
+
+
 ### License ###
-(TBD)
+Copyright (c) 2018 NVIDIA Corp.  All Rights Reserved.
+This work is licensed under the Creative Commons Attribution NonCommercial ShareAlike 4.0 License (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
 ### Project page ###
 [NVIDIA Research project page](http://research.nvidia.com/publication/2018-09_Learning-Rigidity-in)
