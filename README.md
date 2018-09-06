@@ -1,6 +1,6 @@
 # Learning Rigidity in Dynamic Scenes with a Moving Camera for 3D Motion Field Estimation (ECCV 2018)
 
-![alt text](http://research.nvidia.com/sites/default/files/publications/learning-rigidity_0.png)
+![alt text](https://research.nvidia.com/sites/default/files/publications/learning-rigidity_0.png)
 
 
 ### License ###
@@ -8,20 +8,20 @@ Copyright (c) 2018 NVIDIA Corp.  All Rights Reserved.
 This work is licensed under the [Creative Commons Attribution NonCommercial ShareAlike 4.0 License](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
 ### Project page ###
-[NVIDIA Research project page](http://research.nvidia.com/publication/2018-09_Learning-Rigidity-in)
+[NVIDIA Research project page](https://research.nvidia.com/publication/2018-09_Learning-Rigidity-in)
 
 ### Paper ###
- * [ArXiv](https://arxiv.org/pdf/1804.04259.pdf)  
+ * [ArXiv (PDF)](https://arxiv.org/pdf/1804.04259.pdf)  
  * [Video (Youtube)](https://www.youtube.com/watch?v=MnTHkOCY790)
 
 ### Project members ###
 
 * [Zhaoyang Lv](https://www.cc.gatech.edu/~zlv30/), Georgia Institute of Technology
-* [Kihwan Kim](http://research.nvidia.com/person/kihwan-kim), NVIDIA
-* [Alejandro Troccoli](http://research.nvidia.com/person/alejandro-troccoli), NVIDIA
-* [Deqing Sun](http://research.nvidia.com/person/deqing-sun), NVIDIA
+* [Kihwan Kim](https://research.nvidia.com/person/kihwan-kim), NVIDIA
+* [Alejandro Troccoli](https://research.nvidia.com/person/alejandro-troccoli), NVIDIA
+* [Deqing Sun](https://research.nvidia.com/person/deqing-sun), NVIDIA
 * [James M. Rehg](https://rehg.org/), Georgia Institute of Technology
-* [Jan Kautz](http://research.nvidia.com/person/jan-kautz), NVIDIA
+* [Jan Kautz](https://research.nvidia.com/person/jan-kautz), NVIDIA
 
 ## Summary
 
@@ -35,9 +35,9 @@ git clone https://github.com/lvzhaoyang/RefRESH
 
 If you use this code, our generated data, or the dataset creation tool, please cite the following paper:
 
-**Learning Rigidity in Dynamic Scenes with a Moving Camera for 3D Motion Field Estimation**,
+**Learning Rigidity in Dynamic Scenes with a Moving Camera for 3D Motion Field Estimation**,  
 *Zhaoyang Lv, Kihwan Kim, Alejandro Troccoli, Deqing Sun, James M. Rehg, Jan Kautz*, 
-European Conference on Computer Vision 2018
+European Conference on Computer Vision (ECCV) 2018
 
 ```bibtex
 @inproceedings{Lv18eccv,  
