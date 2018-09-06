@@ -1,0 +1,4 @@
+weights/*
+tmp/*
+
+*.pyc
