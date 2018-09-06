@@ -25,7 +25,7 @@ This work is licensed under the [Creative Commons Attribution NonCommercial Shar
 
 ## Summary
 
-This repository provides the our network for our full inference algorithm, including rigidity network, flow and the refinement optimization.
+This repository includes the implementation of our full inference algorithm, including rigidity network, flow and the refinement optimization.
 
 The data creation toolkit is located at an independent [REFRESH repository](https://github.com/lvzhaoyang/RefRESH)
 
@@ -52,7 +52,7 @@ European Conference on Computer Vision 2018
 
 We provide both Docker-based setup for the containerizaiton and generic setup with conda. 
 
-We are working on a release version of the training code, which will be available soon. 
+An inference example is currently available. We are working on a release version of the training code, which will be available soon. 
 
 ## 1. Running with Docker
 ### Prerequisites  
