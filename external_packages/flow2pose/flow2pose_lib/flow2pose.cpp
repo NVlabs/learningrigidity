@@ -26,10 +26,6 @@ using namespace gtsam::noiseModel;
 typedef std::vector<Putative> Putatives;
 typedef boost::shared_ptr<Putatives> sharedPutatives;
 
-bool ThreePointRANSAC::compute_covariance_ = false;
-SharedNoiseModel ThreePointRANSAC::sigma_;
-Matrix ThreePointRANSAC::covariance_;
-
 template<typename T>
 T bilinearInterp(const cv::Mat_<T>& src, const double row, const double col) {
   int lower_row = std::floor(row);
@@ -169,22 +165,6 @@ gtsam::Pose3 Flow2Pose::calculate_transform(const cv::Mat& v_map0, const cv::Mat
 
   Pose3 pose(pose_init);
 
-  // // with three-point RANSAC. We don't use it in the final version.
-  // try {
-  //   int numPutatives = putatives->size();
-  //   // there are some work that we can do to set these inliers
-  //   vector<bool> inliers(numPutatives, true);
-  //   auto ransac_result = ransac_solve(*putatives, inliers, pose, 0.95);
-  
-  //   cout << "ThreePoint/RANSAC inliers: " << ransac_result.inlierCount
-  //        << "Inlier ratior:" << ransac_result.inlierRatio << endl;
-  
-  // } catch (exception& e) {
-  //   cout << e.what() << endl;
-  // }
-
-  // return pose;
-
   return solve(v_list0, v_list1, pose, inliers);
 }
 
@@ -251,105 +231,4 @@ Pose3 Flow2Pose::solve(const vector<Point3>& pts1, const vector<Point3>& pts2, c
       exit(1);
     }
 
-}
-
-void ThreePointRANSAC::Set(bool compute_covariance) {
-  compute_covariance_ = compute_covariance;
-  sigma_ = SharedNoiseModel(
-        noiseModel::Robust::Create(noiseModel::mEstimator::Huber::Create(2.0),
-                                   noiseModel::Isotropic::Sigma(3, 1)));
-}
-
-Ransac::Result Flow2Pose::ransac_solve(const ThreePointRANSAC::Datums& putatives, vector<bool>& inliers, Pose3& pose, double sigma) {
-  // sigma: codimension 2, see HZ book p 119
-  // This sigma may change the behavior of the inliers in each hypothesis
-  // It is said that the sigma is best chosen from chi-square distribution
-  // If sigma is 0.95
-  // 1 (co-dimension 1).line, fundamental matrix 3.84 \sigma^2
-  // 2 (co-dimension 2).homography / camera matrix: 5.99 \sigma^2
-  // 3 (co-dimension 3) trifocal tensor: 7.81 \sigma^2
-  // If sigma is 0.99 (HZ book appendix p567)
-  // 1.(co-dimension 1) 6.63
-  // 2.(co-dimension 2) 9.21
-  // 3.(co-dimension 3) 11.34
-  //
-  // Don't touch the parameter 5.99. It's not hard-coded. :)
-  bool ransac_panoroid = false;
-  Ransac::Parameters params_(ransacConfidence, 5.99*sigma*sigma,
-                           Ransac::LEVEL0, ransacIteration, false, ransac_panoroid);
-
-  Ransac::Result result;
-  result = Ransac::ransac<ThreePointRANSAC>(putatives, pose, inliers, params_);
-
-  return result;
-}
-
-size_t ThreePointRANSAC::inliers(const Datums& putatives, const Model& model,
-  double thresh, Ransac::Mask& mask, double* error) {
-
-  unsigned int setCount = 0;
-
-  const Pose3& current_pose = model;
-
-  for (unsigned int idx = 0; idx < putatives.size(); idx++) {
-    if (mask[idx]) {
-      const Point3& pt1 = putatives[idx].pt1;
-      const Point3& pt2 = putatives[idx].pt2;
-
-      // set up the factor graph for solving the camera pose
-      // point 2 that is transformed to point 1
-      Point3 pt2_1 = current_pose.transform_to(pt2);
-      Point3 error(pt2_1 - pt1);
-
-      if (error.norm() < thresh ) {
-        setCount ++;
-      } else{
-        mask[idx] = false;
-      }
-    }
-  }
-  return setCount;
-}
-
-Pose3 ThreePointRANSAC::refine(const Datums& putatives,
-    const Ransac::Mask& mask, boost::optional<gtsam::Pose3> bestModel) {
-      Pose3 best_pose;
-      if(bestModel)
-        best_pose = *bestModel;
-
-      ExpressionFactorGraph graph;
-
-      auto huber_threshold = 1;
-      auto measurement_noise_model = noiseModel::Isotropic::Sigma(3, 1);
-      auto huber_measurement_model = Robust::Create(mEstimator::Huber::Create(1, mEstimator::Huber::Scalar), measurement_noise_model);
-
-      Symbol X('p', 0);
-      Pose3_ pose(X);
-      for (unsigned int idx = 0; idx < putatives.size(); idx++) {
-        if (mask[idx]) {
-          const Point3& pt1 = putatives[idx].pt1;
-          const Point3& pt2 = putatives[idx].pt2;
-          // set up the factor graph for solving the camera pose
-          Point3_ pt2_(pt2);
-          // point 2 that is transformed to point 1
-          Point3_ pt2_1_ = transform_to(pose, pt2_);
-
-          // estimate inverse depth instead of depth
-          graph.addExpressionFactor(pt2_1_, pt1, huber_measurement_model);
-        }
-      }
-
-      Values initial;
-      initial.insert(X, best_pose);
-
-      static GaussNewtonParams parameters;
-      GaussNewtonOptimizer optimizer(graph, initial, parameters);
-
-      try {
-        Values result = optimizer.optimize();
-        return result.at<Pose3>(X);
-      } catch (IndeterminantLinearSystemException& e) {
-        cout << e.what() << endl;
-        return best_pose;
-      }
 }
