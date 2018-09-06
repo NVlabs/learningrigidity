@@ -1,4 +1,5 @@
 weights/*
 tmp/*
+results/*
 
 *.pyc
