@@ -1,14 +1,15 @@
-""" Author: Zhaoyang Lv
+""" 
+Copyright (C) 2018 NVIDIA Corporation.  All rights reserved.
+Licensed under the CC BY-NC-SA 4.0 license 
+(https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
-The io utilities are partially modified based on MPI-Sintel dev-toolkit.
+Author: Zhaoyang Lv
 
-Refer to:
+Partially refer to:
 =============================================================================
 
 The I/O script to save and load the data coming with the MPI-Sintel low-level
 computer vision benchmark.
-
-For more details about the benchmark, please visit www.mpi-sintel.de
 
 CHANGELOG:
 v1.0 (2015/02/03): First release

@@ -5,6 +5,7 @@
  *      Author: Gregory Kramida
  *   Copyright: 2015 Gregory Kramida
  */
+
 #define NO_IMPORT_ARRAY
 #define PY_ARRAY_UNIQUE_SYMBOL pbcvt_ARRAY_API
 #include "pyboostcvconverter.hpp"

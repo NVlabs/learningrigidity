@@ -1,8 +1,7 @@
 """
-implementation of the PWC-DC network for optical flow estimation by Sun et al., 2018
+Implementation of the PWC-DC network for optical flow estimation by Sun et al., 2018
 
-Jinwei Gu and Zhile Ren
-
+Author: Jinwei Gu and Zhile Ren
 """
 
 import torch
