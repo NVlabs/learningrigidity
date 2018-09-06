@@ -23,8 +23,36 @@ This work is licensed under the [Creative Commons Attribution NonCommercial Shar
 * [James M. Rehg](https://rehg.org/), Georgia Institute of Technology
 * [Jan Kautz](http://research.nvidia.com/person/jan-kautz), NVIDIA
 
+## Summary
+
+This repository provides the our network for our full inference algorithm, including rigidity network, flow and the refinement optimization.
+
+The data creation toolkit is located at an independent [REFRESH repository](https://github.com/lvzhaoyang/RefRESH)
+
+```
+git clone https://github.com/lvzhaoyang/RefRESH
+```
+
+If you use this code, our generated data, or the dataset creation tool, please cite the following paper:
+
+**Learning Rigidity in Dynamic Scenes with a Moving Camera for 3D Motion Field Estimation**,
+*Zhaoyang Lv, Kihwan Kim, Alejandro Troccoli, Deqing Sun, James M. Rehg, Jan Kautz*, 
+European Conference on Computer Vision 2018
+
+```bibtex
+@inproceedings{Lv18eccv,  
+  title     = {Learning Rigidity in Dynamic Scenes with a Moving Camera for 3D Motion Field Estimation},  
+  author    = {Lv, Zhaoyang and Kim, Kihwan and Troccoli, Alejandro and Rehg, James and Kautz, Jan},  
+  booktitle = {ECCV},  
+  year      = {2018}  
+}
+```
+
 ## Usage
-We provide both Docker-based setup for the containerizaiton and generic setup with conda.
+
+We provide both Docker-based setup for the containerizaiton and generic setup with conda. 
+
+We are working on a release version of the training code, which will be available soon. 
 
 ## 1. Running with Docker
 ### Prerequisites  
@@ -80,17 +108,18 @@ You can manually choose the network weights if you have another models.
 /rigidity$python run_inference.py --help
 ```
 
-### Run the training code
-
-Training code will be available soon.
-
-
-
 ## 2. Running with conda
 
 The code was developed using Python 2.7 & PyTorch 0.3.1 & Cuda 8.0. We provide an anaconda environment with all dependencies needed.
 To run it, please ensure you have the [Anaconda Python 2.7 version](https://www.anaconda.com/download/#linux) installed and set the environment path for **conda**. Then run the following script to automatially set up the environment:
+
 ```
+# create the anaconda environment
+conda env create -f setup/rigidity.yml
+
+# activate the environment
+conda activate rigidity
+
 sh setup/install_for_network.sh
 # If you don't need the refinement stage, you can choose not to run this. 
 # And set the post_refine flag to be false
@@ -127,13 +156,9 @@ To run results for your own inputs, you can use the default simple loader provid
 python run_inference.py --color_dir data/market_5/clean --depth_dir data/market_5/depth --intrinsic 1120,1120,511.5,217.5 --post_refine --visualize
 ```
 
-### Run the training code
-
-We are working on a release version of it. Will be available soon.
-
 ### Dataset ###
-* [Document for SINTEL used for this work][4]
-* [REFRESH Data][5]
+* [Document for SINTEL used for this work][4] (Soon)
+* [REFRESH Data][5] (Soon)
 
 [1]: https://drive.google.com/open?id=1FkCKnAFuzPa_ndwK01zGaXnL9xKgN2LY
 [2]: https://drive.google.com/open?id=1bgcRJKGM0KRREUFjHWeMWQTMsm3sFFZw
