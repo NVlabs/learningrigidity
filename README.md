@@ -42,7 +42,7 @@ European Conference on Computer Vision (ECCV) 2018
 ```bibtex
 @inproceedings{Lv18eccv,  
   title     = {Learning Rigidity in Dynamic Scenes with a Moving Camera for 3D Motion Field Estimation},  
-  author    = {Lv, Zhaoyang and Kim, Kihwan and Troccoli, Alejandro and Rehg, James and Kautz, Jan},  
+  author    = {Lv, Zhaoyang and Kim, Kihwan and Troccoli, Alejandro and Sun, Deqing and Rehg, James and Kautz, Jan},  
   booktitle = {ECCV},  
   year      = {2018}  
 }
